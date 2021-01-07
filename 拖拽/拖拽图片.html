@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽</title>
+</head>
+<style>
+    #box img{
+        width:200px;
+    }
+</style>
+<body>
+    <div id="box" style="width:800px;height:600px;border:2px solid #afc"></div>
+    <script>
+        /*
+        300ms延迟，是移动端的一个BUG,如何解决？
+        解决：在移动端，有三种解决方式
+            1、fastclick:快速点击
+            2、touch事件  触摸事件
+            3、Zepto :移动端的库，专门写移动端的库，体积小   tap事件
+
+        拖拽：h5新增的文件拖拽功能，电脑本地文件系统，应用程序系统默认都是可以拖动的
+            在前端开发中img,a标签是可以被拖动的
+
+        draggable:设置元素可以被拖动 true:可以拖动/false：不可以拖动/auto：自适应
+        拖：(拖动源) 
+            ondragstart：文件拖拽开始时触发
+            ondrag：文件拖拽过程中触发，每350ms触发一次，直到文件到目标区域内完成
+            ondragend：文件拖拽结束时触发
+
+        一个元素变成可释放区域，该元素必须设置 ondragover 和 ondrop 事件处理程序属性
+        注意：在ondragover,ondrop过程中阻止浏览器的默认行为：preventDefault()
+        放：（目标源）
+            ondragenter:拖动源被拖进目标区域内触发的事件
+            ondragover:文件在目标区域内被拖动的触发事件，
+            ondragleave:文件在目标区域内离开时触发的事件
+            ondrop:在目标区域内释放时触发的事件
+        
+        datatransfer:
+            在所有的拖放事件中都提供了一个数据传输对象dataTransfer【穿梭对象】，
+            通过它来传输被拖动的数据，以便在拖拽结束的时候，对数据进行其他的操作。
+            文件的数据存放到当前对象内，拖动过程中，携带此对象进行拖拽，
+            到达目标区内，获取datatransfer中的数据在目标区域内释放
+        一般情况：
+            在拖动事件开始(ondragstart)的时候，可以对dataTransfer进行操作(setData)
+            拖动结束的时候(ondrop)，可以获取dataTransfer对象里的值(getData)
+        datatransfer方法：
+            setData(数据类型，数据):存数据
+            getData()：该方法从dataTransfer对象中读取数据，参数为在setData方法中指定的数据类型
+            clearData()：该方法清空dataTransfer对象中存储的数据
+
+        
+        
+        */
+        //阻止浏览器的默认行为
+        document.ondragover = (e)=>{
+            e.preventDefault()
+        }
+        document.ondrop = (e)=>{
+            e.preventDefault()
+        }
+        //读取本地文件系统
+        function filereader(file){
+            let reader = new FileReader;
+            reader.readAsDataURL(file)
+            reader.onload = (e)=>{
+                let img = new Image();
+                console.log(e,reader);
+                // img.src = reader.result;
+                //reader.result == e.target.result
+                img.src = e.target.result
+                box.appendChild(img)
+            }
+        }
+        //
+        box.ondrop = (e)=>{
+            let list = Array.from(e.dataTransfer.files)
+            list.forEach(item =>{
+                filereader(item)
+            })
+            // console.log(list);
+        }
+
+    </script>
+</body>
+</html>

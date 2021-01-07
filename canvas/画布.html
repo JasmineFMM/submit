@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画布</title>
+</head>
+<body>
+    <canvas id="can" width="800px" height="600px" style="background: rgb(157, 187, 243);"></canvas>
+    <script>
+        /*
+        h5新增画布：
+        设置画布的宽高只有两种方法：
+            1.标签内设置宽高属性
+            2.通过JS设置宽高
+
+        canvas只支持两种形式的图形绘制：矩形和路径
+            1.矩形
+                getContext("2d") 对象是内建的 HTML5 对象，拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。
+                fillStyle：矩形的填充颜色
+                fill():填充
+                fillRect(x,y,width,height):绘制填充矩形
+                strokeRect(x,y,width,height):绘制矩形边框
+                clearRect(x,y,width,height):擦除指定矩形区域
+            2.路径连线
+                beginPath():创建一条路径
+                moveTo(x,y) 定义线条开始坐标
+                lineTo(x,y) 定义线条走过的坐标
+                closePath():合闭路径
+                strokeStyle:线的颜色
+                stroke():通过线条来绘制图形轮廓。
+                fill():通过填充路径的内容区域生成实心的图形。
+                lineWidth:线宽
+            
+        画圆：
+            arc(圆心x,圆心y,半径,起始度数,结束度数,true/false)
+            false:默认顺时针，true:逆时针
+            Math.PI:180deg
+        */
+    //画圆
+        let can = document.getElementById("can");
+        let pen = can.getContext("2d");
+        // pen.beginPath();
+        // pen.arc(150,150,80,Math.PI/3,2*Math.PI);
+        // pen.stroke();
+
+    //矩形
+        pen.fillStyle = 'pink'
+        pen.fillRect(200,200,50,50)
+        // pen.clearRect(50,50,100,100)
+        // pen.strokeRect(100,100,100,180)
+
+    //路径连线
+        
+        // pen.beginPath();
+        // pen.moveTo(0,50)
+        // pen.lineTo(50,50)
+        // pen.lineTo(75,0)
+        // pen.lineTo(100,50)
+        // pen.lineTo(150,50)
+        // pen.lineTo(150,100)
+        // pen.lineTo(0,100)
+        // pen.closePath()
+        // pen.strokeStyle = 'transparent';
+        // pen.stroke()
+        // pen.fillStyle = 'pink'
+        // pen.fill()
+        
+        
+        // pen.arc(120,120,100,Math.PI,Math.PI/2*3,true)
+        // pen.stroke()
+        
+        // pen.strokeStyle = "pink"
+        // pen.strokeRect(100,100,100,50)
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八卦图</title>
+</head>
+<body>
+    <canvas id="can" width="400px" height="400px" style="background:lightsteelblue"></canvas>
+    <script>
+        let pen = can.getContext("2d")
+        pen.beginPath()
+        pen.arc(200,200,100,Math.PI*0.5,Math.PI*1.5)
+        pen.fill()
+
+        pen.beginPath()
+        pen.arc(200,200,100,Math.PI*0.5,Math.PI*1.5,true)
+        pen.fillStyle = "white"
+        pen.fill()
+
+        pen.beginPath()
+        pen.arc(200,250,50,0,Math.PI*2)
+        pen.fillStyle = "black"
+        pen.fill()
+       
+        pen.beginPath()
+        pen.arc(200,150,50,0,Math.PI*2)
+        pen.fillStyle = "white"
+        pen.fill()
+
+        pen.beginPath()
+        pen.arc(200,250,10,0,Math.PI*2)
+        pen.fill()
+
+        pen.beginPath()
+        pen.arc(200,150,10,0,Math.PI*2)
+        pen.fillStyle = "black"
+        pen.fill()
+
+
+    </script>
+</body>
+</html>

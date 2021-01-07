@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webSocket</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        .father{
+            width:600px;
+            height:600px;
+            margin:20px auto;
+            border-radius:10px;
+            border:1px solid rgb(187, 186, 186);
+            text-align:center;
+        }
+        p{
+            margin-top:20px;
+        }
+        .receiveMsg{
+            width:400px;
+            height:300px;
+            margin:20px auto;
+            background: rgb(229, 255, 196);
+            border-radius: 10px;
+            overflow: auto;
+        }
+        .msg{
+            resize:none;
+            width:400px;
+            height:80px;
+            border-radius: 10px;
+            text-indent:5px;
+        }
+        .sendBtn,.closeBtn{
+            color:#fff;
+            width:120px;
+            height:50px;
+            line-height:50px;
+            margin:0 auto;
+            margin-top:8px;
+            margin-bottom:8px;
+            border-radius:5px;
+        }
+        .sendBtn{
+            background: rgb(110, 218, 3);
+            cursor:pointer;
+        }
+        .closeBtn{
+            background: cornflowerblue;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <p>服务端返回的消息</p>
+        <div class="receiveMsg"> </div>
+        <textarea class="msg" cols="30" rows="10" placeholder="请输入信息" ></textarea>
+        <div class="sendBtn">发送数据</div>
+        <div class="closeBtn">断开连接</div>
+    </div>
+    <script>
+    //启动黑窗口 npm run dev
+    //获取DOM
+        let receiveMsg = document.getElementsByClassName("receiveMsg")[0],
+            msg = document.getElementsByClassName("msg")[0],
+            sendBtn = document.getElementsByClassName("sendBtn")[0],
+            closeBtn = document.getElementsByClassName("closeBtn")[0];
+     
+    //连接服务器
+        //实例化
+        let ws = new WebSocket("ws://localhost:3004/websocket/test");
+        // console.log(ws);
+        //监听是否连接成功
+        ws.addEventListener("open",(e)=>{
+            // console.log(`连接状态为:${ws.readyState}`);
+        })
+        //传输数据
+        ws.addEventListener("message",(e)=>{
+            let data = JSON.parse(e.data);
+            // console.log(typeof data);
+            receiveMsg.innerHTML += `<p>${data}</p>`;
+            //设置滚动条
+           
+            receiveMsg.scrollTo({
+                top:receiveMsg.scrollHeight,
+                behavior:'smooth'
+            })
+        })
+       
+        //点击按钮发送数据
+        sendBtn.onclick = ()=>{
+            ws.send(msg.value)
+            msg.value = ""
+        }
+        //监听断开连接的过程
+        ws.addEventListener("close",()=>{
+            console.log(`连接状态为:${ws.readyState}`)
+        })
+        //点击断开连接
+        closeBtn.onclick = ()=>{
+            ws.close()
+        }
+
+
+
+    </script>
+</body>
+</html>

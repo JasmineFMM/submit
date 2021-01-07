@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #box{
+        width:600px;
+        height:600px;
+        border:3px dashed mediumturquoise;
+    }
+    #box img{
+        width:200px;
+    }
+    .father{
+        width:600px;
+        text-align:center;
+    }
+    #info{
+        height:60px;
+        line-height:60px;
+    }
+    #btn{
+        width:150px;
+        height:50px;
+        line-height:50px;
+        background: mediumturquoise;
+        color:white;
+        margin:0 auto;
+    }
+</style>
+<body>
+    <div id="box"></div>
+    <div class="father">
+        <div id="info">将图片拖拽到虚线区域内</div>
+        <div id="btn">点击上传</div>
+    </div>
+    <script>
+        //阻止默认行为
+        document.ondrop = (e)=>{
+            e.preventDefault()
+        }
+        document.ondragover = (e)=>{
+            e.preventDefault()
+        }
+        //读取本地文件
+        function filereader(file){
+            return new Promise((res)=>{
+                let reader = new FileReader();
+                reader.readAsDataURL(file)
+                reader.onload = (e)=>{
+                    // console.log(e.target.result);
+                    res(e.target.result)
+                    let img = document.createElement("img")
+                    img.src = e.target.result
+                    box.appendChild(img)
+                }
+            })
+        }
+        //拖放
+        box.ondrop = async(e)=>{
+            let list = Array.from(e.dataTransfer.files);
+            console.log(list);
+            list.forEach((item,index)=>{
+                //拖拽区域内显示图片
+                filereader(item)
+            })
+            //BASE64
+            let BASE64 = await Promise.all(list.map((item,index)=>{
+                return filereader(item)
+            }))
+            console.log(BASE64);
+            //创建上传列表
+            let fileList = [];
+            list.forEach((item,index)=>{
+                // BASE64[index] = item.
+                fileList[index] = {
+                    filename:list[index].name,
+                    // base64:
+                }
+            })
+            console.log(fileList);
+        }
+        //传递后台
+        function postMsg(url,data,config){
+            return axios.post(`http://localhost:8888/${url}`,data,config).then(res =>{
+                return res.data
+            })
+        }
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

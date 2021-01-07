@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贝塞尔曲线</title>
+</head>
+<body>
+    <canvas id="can" width="800px" height="600px" style="background: pink;"></canvas>
+    <script>
+        /*
+        二次贝塞尔曲线：有一个控制点
+            moveTo(x,y):必须要有起始点
+            quadraticCurveTo(cp1x, cp1y, x, y)：
+                    cp1x, cp1y控制点；x, y：结束点
+
+        三次贝塞尔曲线：有两个控制点
+            moveTo(x,y):必须要有起始点
+            bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)
+
+        */
+
+    let can = document.getElementById("can")
+    let pen = can.getContext("2d")
+    //两次贝塞尔曲线
+        // pen.beginPath()
+        // pen.moveTo(100,150)
+        // pen.quadraticCurveTo(120,300,500,100)
+        // pen.stroke()
+
+    //三次贝塞尔曲线
+        // pen.beginPath()
+        // pen.moveTo(0,300)
+        // pen.bezierCurveTo(200, 0, 600, 600, 800, 300)
+        // pen.stroke()
+
+    //气泡
+        // pen.beginPath()
+        // pen.moveTo(100,100)
+        // pen.quadraticCurveTo(200,70,300,100)
+
+        // pen.quadraticCurveTo(330,175,300,250)
+        
+        // pen.quadraticCurveTo(200,280,100,250)
+
+        // pen.quadraticCurveTo(70,175,100,100)
+        // pen.closePath()
+        // pen.stroke()
+
+        // pen.beginPath();
+        // pen.moveTo(75, 25);
+        // pen.lineTo(25,62.5)
+        // pen.lineTo(50,100)
+        // pen.lineTo(30,125)
+        // pen.lineTo(65,100)
+        // pen.lineTo(125,62.5)
+        // pen.lineTo(75,25)
+
+        // pen.quadraticCurveTo(25, 25, 25, 62.5);
+        // pen.quadraticCurveTo(25, 100, 50, 100);
+        // pen.quadraticCurveTo(50, 120, 30, 125);
+        // pen.quadraticCurveTo(60, 120, 65, 100);
+        // pen.quadraticCurveTo(125, 100, 125, 62.5);
+        // pen.quadraticCurveTo(125, 25, 75, 25);
+        // pen.stroke();
+    //心形
+        pen.beginPath();
+        pen.moveTo(0, 50);
+        pen.quadraticCurveTo(12.5, 12.5, 50, 0);
+        // pen.lineTo(50,0);
+
+        pen.quadraticCurveTo(100, 12.5, 100, 50);
+        // pen.lineTo(100, 50);
+
+        pen.quadraticCurveTo(100, 12.5, 150, 0);
+        // pen.lineTo(150, 0);
+
+        pen.quadraticCurveTo(187.5, 12.5, 200, 50);
+        // pen.lineTo(200, 50);
+
+        pen.quadraticCurveTo(200, 120, 100, 200);
+        // pen.lineTo( 100, 150);
+
+        pen.quadraticCurveTo(0, 120, 0, 50);
+        // pen.lineTo( 0, 50);
+
+        // pen.closePath()
+        pen.strokeStyle = "red"
+        pen.stroke()
+        pen.fillStyle = "red"
+        pen.fill()
+       
+
+    </script>
+</body>
+</html>
